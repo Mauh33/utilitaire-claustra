@@ -1,0 +1,7 @@
+@import '../mixins/mixins';
+
+.footer {
+  grid-column: 1/12;
+  grid-row: 9;
+  @include flexbox($direction: row, $wrap: nowrap, $justify: center, $align: center);
+}

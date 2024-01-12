@@ -1,0 +1,13 @@
+@import '../variables';
+@import '../placeholder/placeholders';
+@import '../mixins/mixins';
+
+
+.header {
+  grid-column: 1/12;
+  grid-row: 1;
+  @include flexbox($direction: row, $wrap: nowrap, $justify: center, $align: center);
+  background-color: var(--third-color) ;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+

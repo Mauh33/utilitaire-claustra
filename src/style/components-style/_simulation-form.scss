@@ -1,0 +1,21 @@
+@import '../variables';
+@import '../placeholder/placeholders';
+@import '../mixins/mixins';
+
+.form-simulation-bloc {
+  @include flexbox($direction: row, $wrap: wrap, $justify: space-evenly, $align: center);
+  background-color: var(--secondary-color) ;
+  width: 100%;
+  max-width: 50vw;
+  min-width: 300px;
+  height: 70%;
+  max-height: 600px;
+  border-radius: 10px;
+  margin: 20px auto;
+
+  label {
+    flex-basis: 50px;
+    margin: 20px;
+  }
+}
+

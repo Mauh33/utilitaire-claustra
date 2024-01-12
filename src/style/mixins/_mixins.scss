@@ -1,0 +1,59 @@
+@import '../placeholder/placeholders';
+
+
+@mixin grid($rows: null, $columns: null, $gap: null, $row-gap: null, $column-gap: null) {
+  @if ($columns) {
+    display: grid;
+
+    @if ($gap) {
+      gap: $gap;
+    } @else {
+      row-gap: $row-gap;
+      column-gap: $column-gap;
+    }
+
+    grid-template-rows: $rows;
+    grid-template-columns: ($columns);
+  } @else {
+    display: grid;
+
+    @if ($gap) {
+      gap: $gap;
+    } @else {
+      row-gap: $row-gap;
+      column-gap: $column-gap;
+    }
+
+    grid-template-rows: $rows;
+  }
+}
+
+@mixin flexbox($direction: row, $wrap: nowrap, $justify: center, $align: center, $gap: 0, $child-placeholder: null) {
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+  align-items: $align;
+
+  @if $gap {
+    margin: -$gap / 2;
+
+    &>* {
+      margin: $gap / 2;
+    }
+  }
+
+  @if $child-placeholder !=null {
+    @if $child-placeholder==small {
+      @extend %flex-child-small;
+    }
+
+    @else if $child-placeholder==medium {
+      @extend %flex-child-medium;
+    }
+
+    @else if $child-placeholder==large {
+      @extend %flex-child-large
+    }
+  }
+}
