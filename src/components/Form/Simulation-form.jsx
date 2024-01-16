@@ -13,7 +13,7 @@ export default function SimulationForm() {
     !values.length || !values.width || !values.nbrOfFence;
 
   const calculateGap = (length, width, nbrOfFence) => {
-    const gapValue = length - (width * nbrOfFence) / (nbrOfFence - 1);
+    const gapValue = (length - (width * nbrOfFence)) / (nbrOfFence - 1);
     console.log("calcul de l'écart", gapValue);
     return gapValue.toFixed(2);
   };
