@@ -1,7 +1,17 @@
+@import '../variables';
 @import '../mixins/mixins';
 
 .footer {
-  grid-column: 1/12;
-  grid-row: 9;
+  min-height: 100px;
+  grid-row: 13/14;
+  grid-column: 1/8;
   @include flexbox($direction: row, $wrap: nowrap, $justify: center, $align: center);
+  background-color: var(--third-color);
+}
+
+@include from(sm) {
+  .footer {
+    grid-column: 1/12;
+    grid-row: 13;
+  }
 }

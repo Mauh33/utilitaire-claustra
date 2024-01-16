@@ -7,3 +7,16 @@
   --font-color: #23340D;
 }
 
+$max-xs: 426px;
+$max-sm: 767px;
+$max-md: 1024px;
+$max-lg: 1240px;
+$max-xl: false;
+
+$breakpoints: (
+  xs: $max-xs,
+  sm: $max-sm,
+  md: $max-md,
+  lg: $max-lg,
+  xl: $max-xl,
+);

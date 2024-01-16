@@ -1,3 +1,4 @@
+@import '../variables';
 @import '../placeholder/placeholders';
 
 
@@ -55,5 +56,20 @@
     @else if $child-placeholder==large {
       @extend %flex-child-large
     }
+  }
+}
+
+@mixin from($media) {
+  @if $media == sm {
+    @media only screen and (min-width: $max-xs + 1) { @content; }
+  }
+  @else if $media == md {
+    @media only screen and (min-width: $max-sm + 1) { @content; }
+  }
+  @else if $media == lg {
+    @media only screen and (min-width: $max-md + 1) { @content; }
+  }
+  @else if $media == xl {
+    @media only screen and (min-width: $max-lg + 1) { @content; }
   }
 }

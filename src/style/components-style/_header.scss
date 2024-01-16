@@ -4,10 +4,18 @@
 
 
 .header {
-  grid-column: 1/12;
+  position: relative;
+  min-height: 100px;
+  grid-column: 1/8;
   grid-row: 1;
   @include flexbox($direction: row, $wrap: nowrap, $justify: center, $align: center);
   background-color: var(--third-color) ;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
+@include from(sm) {
+  .header {
+    grid-column: 1/12;
+    grid-row: 1;
+  }
+}

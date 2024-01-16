@@ -3,19 +3,62 @@
 @import '../mixins/mixins';
 
 .form-simulation-bloc {
-  @include flexbox($direction: row, $wrap: wrap, $justify: space-evenly, $align: center);
+  @include flexbox($direction: row, $wrap: wrap, $justify: center, $align: center);
   background-color: var(--secondary-color) ;
   width: 100%;
-  max-width: 50vw;
-  min-width: 300px;
-  height: 70%;
-  max-height: 600px;
   border-radius: 10px;
   margin: 20px auto;
+  padding: 10px 0;
 
   label {
-    flex-basis: 50px;
+  flex-basis: 50px;
     margin: 20px;
   }
 }
 
+.btn-bloc {
+  flex-basis: 300px;
+  text-align: center;
+}
+
+.flex-bloc-column-center-start {
+  @extend %begin-flex-column;
+  @extend %flex-column-template-start;
+  height: 100%;
+}
+
+
+.table-result {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background-color: var(--secondary-color);
+    border: 1px solid black;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: var(--secondary-color);
+  }
+
+  td:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+}
+
+@include from(md) {
+    .form-simulation-bloc {
+      max-width: 600px;
+      min-width: 300px;
+      width: auto;
+      height: 55%;
+      max-height: 600px;
+    }
+  }

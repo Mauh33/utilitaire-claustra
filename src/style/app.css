@@ -1,0 +1,53 @@
+:root {
+  --primary-color: #FBFAF0;
+  --secondary-color: #C8DA52;
+  --third-color: #86BE42;
+  --title-color: #EEE14F;
+  --font-color: #23340D;
+}
+
+:root {
+  --primary-color: #FBFAF0;
+  --secondary-color: #C8DA52;
+  --third-color: #86BE42;
+  --title-color: #EEE14F;
+  --font-color: #23340D;
+}
+
+:root {
+  --primary-color: #FBFAF0;
+  --secondary-color: #C8DA52;
+  --third-color: #86BE42;
+  --title-color: #EEE14F;
+  --font-color: #23340D;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  background-color: var(--primary-color);
+  width: 150vw;
+  height: 100vh;
+}
+
+#root {
+  display: grid;
+  gap: 10px;
+  grid-template-rows: 20vh repeat(8, 12vw);
+  grid-template-columns: repeat(12, 8.3vw);
+}
+
+img {
+  border-style: none;
+}
+
+h1, h2 {
+  color: var(--title-color);
+}
+
+.main-content {
+  grid-column: 1/12;
+  grid-row: 2/9;
+}/*# sourceMappingURL=app.css.map */
