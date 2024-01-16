@@ -1,8 +1,13 @@
-@import '../variables';
-@import '../placeholder/placeholders';
+@import "../variables";
+@import "../placeholder/placeholders";
 
-
-@mixin grid($rows: null, $columns: null, $gap: null, $row-gap: null, $column-gap: null) {
+@mixin grid(
+  $rows: null,
+  $columns: null,
+  $gap: null,
+  $row-gap: null,
+  $column-gap: null
+) {
   @if ($columns) {
     display: grid;
 
@@ -29,7 +34,14 @@
   }
 }
 
-@mixin flexbox($direction: row, $wrap: nowrap, $justify: center, $align: center, $gap: 0, $child-placeholder: null) {
+@mixin flexbox(
+  $direction: row,
+  $wrap: nowrap,
+  $justify: center,
+  $align: center,
+  $gap: 0,
+  $child-placeholder: null
+) {
   display: flex;
   flex-direction: $direction;
   flex-wrap: $wrap;
@@ -39,7 +51,7 @@
   @if $gap {
     margin: -$gap / 2;
 
-    &>* {
+    & > * {
       margin: $gap / 2;
     }
   }
@@ -47,29 +59,30 @@
   @if $child-placeholder !=null {
     @if $child-placeholder==small {
       @extend %flex-child-small;
-    }
-
-    @else if $child-placeholder==medium {
+    } @else if $child-placeholder==medium {
       @extend %flex-child-medium;
-    }
-
-    @else if $child-placeholder==large {
-      @extend %flex-child-large
+    } @else if $child-placeholder==large {
+      @extend %flex-child-large;
     }
   }
 }
 
 @mixin from($media) {
   @if $media == sm {
-    @media only screen and (min-width: $max-xs + 1) { @content; }
-  }
-  @else if $media == md {
-    @media only screen and (min-width: $max-sm + 1) { @content; }
-  }
-  @else if $media == lg {
-    @media only screen and (min-width: $max-md + 1) { @content; }
-  }
-  @else if $media == xl {
-    @media only screen and (min-width: $max-lg + 1) { @content; }
+    @media only screen and (min-width: $max-xs + 1) {
+      @content;
+    }
+  } @else if $media == md {
+    @media only screen and (min-width: $max-sm + 1) {
+      @content;
+    }
+  } @else if $media == lg {
+    @media only screen and (min-width: $max-md + 1) {
+      @content;
+    }
+  } @else if $media == xl {
+    @media only screen and (min-width: $max-lg + 1) {
+      @content;
+    }
   }
 }

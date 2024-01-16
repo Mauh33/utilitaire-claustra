@@ -1,6 +1,6 @@
-@import './variables';
-@import './mixins/mixins';
-@import './placeholder/placeholders';
+@import "./variables";
+@import "./mixins/mixins";
+@import "./placeholder/placeholders";
 
 * {
   margin: 0;
@@ -10,19 +10,24 @@ body {
   background-color: var(--primary-color);
   width: 100vw;
   height: max-content;
+  overflow-x: hidden;
 }
 
 #root {
   position: relative;
-  @include grid($rows: auto repeat(12, auto), $columns: 9vw repeat(6, 14vw), $gap: 5px)
+  @include grid(
+    $rows: auto repeat(12, 7vh),
+    $columns: 9vw repeat(6, 14vw),
+    $gap: 5px
+  );
 }
-
 
 img {
   border-style: none;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: var(--title-color);
 }
 
@@ -32,14 +37,13 @@ h1, h2 {
   grid-row: 2/12;
 }
 
-
 @include from(sm) {
   body {
     height: 100vh;
   }
 
   #root {
-    @include grid( $columns: repeat(12, 8.3vw), $gap: 10px)
+    @include grid($columns: 10vw repeat(12, 8.2vw), $gap: 10px);
   }
 
   .main-content {

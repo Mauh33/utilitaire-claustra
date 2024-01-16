@@ -1,17 +1,22 @@
-@import '../variables';
-@import '../placeholder/placeholders';
-@import '../mixins/mixins';
+@import "../variables";
+@import "../placeholder/placeholders";
+@import "../mixins/mixins";
 
 .form-simulation-bloc {
-  @include flexbox($direction: row, $wrap: wrap, $justify: center, $align: center);
-  background-color: var(--secondary-color) ;
+  @include flexbox(
+    $direction: row,
+    $wrap: wrap,
+    $justify: center,
+    $align: center
+  );
+  background-color: var(--secondary-color);
   width: 100%;
   border-radius: 10px;
   margin: 20px auto;
   padding: 10px 0;
 
   label {
-  flex-basis: 50px;
+    flex-basis: 50px;
     margin: 20px;
   }
 }
@@ -27,7 +32,6 @@
   height: 100%;
 }
 
-
 .table-result {
   width: 100%;
   border-collapse: collapse;
@@ -38,7 +42,8 @@
     width: 100%;
   }
 
-  th, td {
+  th,
+  td {
     border: 1px solid black;
     padding: 8px;
     text-align: left;
@@ -54,11 +59,11 @@
 }
 
 @include from(md) {
-    .form-simulation-bloc {
-      max-width: 600px;
-      min-width: 300px;
-      width: auto;
-      height: 55%;
-      max-height: 600px;
-    }
+  .form-simulation-bloc {
+    max-width: 600px;
+    min-width: 300px;
+    width: auto;
+    height: 55%;
+    max-height: 600px;
   }
+}

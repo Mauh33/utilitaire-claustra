@@ -1,11 +1,16 @@
-@import '../variables';
-@import '../placeholder/placeholders';
-@import '../mixins/mixins';
-@import '../components-style/simulation-form';
-
+@import "../variables";
+@import "../placeholder/placeholders";
+@import "../mixins/mixins";
+@import "../components-style/simulation-form";
 
 .simulation-form-section {
-  @include flexbox($direction: column, $wrap: nowrap, $justify: center, $align: center, $gap: 10px);
+  @include flexbox(
+    $direction: column,
+    $wrap: nowrap,
+    $justify: center,
+    $align: center,
+    $gap: 10px
+  );
   width: 100%;
   height: 100%;
   margin: 20px auto;

@@ -1,11 +1,16 @@
-@import '../variables';
-@import '../mixins/mixins';
+@import "../variables";
+@import "../mixins/mixins";
 
 .footer {
   min-height: 100px;
   grid-row: 13/14;
   grid-column: 1/8;
-  @include flexbox($direction: row, $wrap: nowrap, $justify: center, $align: center);
+  @include flexbox(
+    $direction: row,
+    $wrap: nowrap,
+    $justify: center,
+    $align: center
+  );
   background-color: var(--third-color);
 }
 
