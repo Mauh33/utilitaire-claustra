@@ -2,7 +2,7 @@
 @import "../mixins/mixins";
 
 .footer {
-  min-height: 100px;
+  min-height: 120px;
   grid-row: 13/14;
   grid-column: 1/8;
   @include flexbox(
@@ -16,7 +16,7 @@
 
 @include from(sm) {
   .footer {
-    grid-column: 1/12;
-    grid-row: 13;
+    grid-column: 1/13;
+    grid-row: 13/14;
   }
 }

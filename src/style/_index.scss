@@ -16,7 +16,7 @@ body {
 #root {
   position: relative;
   @include grid(
-    $rows: auto repeat(12, 7vh),
+    $rows: repeat(auto-fill, 18vh),
     $columns: 9vw repeat(6, 14vw),
     $gap: 5px
   );
@@ -43,7 +43,7 @@ h2 {
   }
 
   #root {
-    @include grid($columns: 10vw repeat(12, 8.2vw), $gap: 10px);
+    @include grid($rows: 20vh repeat(auto-fill, 10vw) ,$columns: 8vw repeat(11, auto), $gap: 10px);
   }
 
   .main-content {

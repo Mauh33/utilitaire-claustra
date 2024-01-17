@@ -6,42 +6,73 @@ export default function SimulationForm() {
     length: "",
     width: "",
     nbrOfFence: "",
+    thickness: "",
   });
   const [gap, setGap] = useState("");
   const [calculations, setCalculations] = useState([]);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const isCalculationDisabled =
     !values.length || !values.width || !values.nbrOfFence;
 
   const calculateGap = (length, width, nbrOfFence) => {
-    const gapValue = (length - (width * nbrOfFence)) / (nbrOfFence - 1);
-    console.log("calcul de l'écart", gapValue);
+    const gapValue = (length - width * nbrOfFence) / (nbrOfFence - 1);
     return gapValue.toFixed(2);
   };
 
-  const addNewValueInCalcul = e => {
+  const calculateWoodThickness = (width, gap) => {
+    let woodThickness = [0];
+    for (let i = 1; i <= 38; i++) {
+      woodThickness.push(
+        (woodThickness[i - 1] || 0) + parseFloat(width) + parseFloat(gap)
+      );
+    }
+    return woodThickness;
+  };
+
+  const addNewValueInCalcul = (e) => {
     e.preventDefault();
 
-    const { length, width, nbrOfFence } = values;
+    const { length, width, nbrOfFence, thickness } = values;
 
     if (length && width && nbrOfFence) {
-      const calculatedGap = calculateGap(length, width, nbrOfFence);
-      setGap(calculatedGap);
-      setCalculations([...calculations, { gap: calculatedGap }]);
+      let definitiveGap = calculateGap(
+        parseFloat(length),
+        parseFloat(width),
+        nbrOfFence
+      );
+      setGap(definitiveGap);
+      const woodThickness = calculateWoodThickness(
+        width,
+        definitiveGap,
+        parseFloat(thickness) || 0
+      );
+      setCalculations([{ gap: definitiveGap, thickness: woodThickness }]);
+      setIsButtonClicked(true);
+    } else {
+      setCalculations([{thickness}]);
     }
   };
 
   useEffect(() => {
-    const { length, width, nbrOfFence } = values;
 
-    if (length && width && nbrOfFence) {
-      const calculatedGap = calculateGap(
+      const { length, width, nbrOfFence, thickness } = values;
+      const definitiveGap = calculateGap(
         parseFloat(length),
         parseFloat(width),
         parseInt(nbrOfFence)
       );
-      setGap(calculatedGap);
+      setGap(definitiveGap);
+      if (isButtonClicked) {
+      const woodThickness = calculateWoodThickness(
+        values.width,
+        definitiveGap,
+        thickness
+      );
+      setCalculations([
+        { gap: parseFloat(definitiveGap), thickness: woodThickness },
+      ]);
     }
-  }, [values]);
+  }, [isButtonClicked, values]);
 
   return (
     <div className='flex-bloc-column-center-start'>
@@ -96,14 +127,15 @@ export default function SimulationForm() {
       <table className='table-result'>
         <thead>
           <tr>
-            <th>Epaisseur du bois à droite</th>
+            <th>Index</th>
+            <th>Epaisseur du bois</th>
           </tr>
         </thead>
         <tbody>
-          {calculations.map((calculation, index) => (
+        {calculations[0]?.thickness?.map((thickness, index) => (
             <tr key={index}>
-              <th>{index + 1}</th>
-              <td>{calculation.gap}</td>
+              <td>{index + 1}</td>
+              <td>{thickness.toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
@@ -111,3 +143,4 @@ export default function SimulationForm() {
     </div>
   );
 }
+

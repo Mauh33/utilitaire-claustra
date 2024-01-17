@@ -11,7 +11,10 @@
     $align: center,
     $gap: 10px
   );
+
   width: 100%;
+  min-width: 280px;
   height: 100%;
   margin: 20px auto;
+
 }
