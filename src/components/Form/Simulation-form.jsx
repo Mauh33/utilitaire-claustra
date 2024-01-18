@@ -10,7 +10,6 @@ export default function SimulationForm() {
   });
   const [gap, setGap] = useState("");
   const [calculations, setCalculations] = useState([]);
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const isCalculationDisabled =
     !values.length || !values.width || !values.nbrOfFence;
 
@@ -29,50 +28,34 @@ export default function SimulationForm() {
     return woodThickness;
   };
 
-  const addNewValueInCalcul = (e) => {
-    e.preventDefault();
+  const addNewValueInCalcul = () => {
 
     const { length, width, nbrOfFence, thickness } = values;
+    const definitiveGap = calculateGap(
+      parseFloat(length),
+      parseFloat(width),
+      parseInt(nbrOfFence)
+    );
+    setGap(definitiveGap);
+    const woodThickness = calculateWoodThickness(
+      values.width,
+      definitiveGap,
+      thickness
+    );
+    setCalculations([
+      { gap: parseFloat(definitiveGap), thickness: woodThickness },
+    ]);
 
-    if (length && width && nbrOfFence) {
-      let definitiveGap = calculateGap(
-        parseFloat(length),
-        parseFloat(width),
-        nbrOfFence
-      );
-      setGap(definitiveGap);
-      const woodThickness = calculateWoodThickness(
-        width,
-        definitiveGap,
-        parseFloat(thickness) || 0
-      );
-      setCalculations([{ gap: definitiveGap, thickness: woodThickness }]);
-      setIsButtonClicked(true);
-    } else {
-      setCalculations([{thickness}]);
-    }
+  console.log(calculations);
+  console.log(values);
+
   };
 
   useEffect(() => {
-
-      const { length, width, nbrOfFence, thickness } = values;
-      const definitiveGap = calculateGap(
-        parseFloat(length),
-        parseFloat(width),
-        parseInt(nbrOfFence)
-      );
-      setGap(definitiveGap);
-      if (isButtonClicked) {
-      const woodThickness = calculateWoodThickness(
-        values.width,
-        definitiveGap,
-        thickness
-      );
-      setCalculations([
-        { gap: parseFloat(definitiveGap), thickness: woodThickness },
-      ]);
+    if (values.length && values.width && values.nbrOfFence ) {
+      addNewValueInCalcul();
     }
-  }, [isButtonClicked, values]);
+  }, [calculations, values]);
 
   return (
     <div className='flex-bloc-column-center-start'>
@@ -115,13 +98,6 @@ export default function SimulationForm() {
           <input type='number' readOnly='readOnly' value={gap} />
         </label>
         <div className='btn-bloc'>
-          <button
-            type='submit'
-            onClick={addNewValueInCalcul}
-            disabled={isCalculationDisabled}
-          >
-            calculez
-          </button>
         </div>
       </form>
       <table className='table-result'>
@@ -132,12 +108,12 @@ export default function SimulationForm() {
           </tr>
         </thead>
         <tbody>
-        {calculations[0]?.thickness?.map((thickness, index) => (
+        {calculations.length ? calculations[0]?.thickness?.map((thickness, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{thickness.toFixed(2)}</td>
             </tr>
-          ))}
+          )) : null}
         </tbody>
       </table>
     </div>
