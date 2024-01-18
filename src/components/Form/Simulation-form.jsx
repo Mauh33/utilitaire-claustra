@@ -1,17 +1,31 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import "../../style/components-style/_simulation-form.scss";
 
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_VALUES':
+      return {...state, values: action.payload};
+    case 'SET_GAP':
+      return {...state, gap: action.payload}
+    case 'SET_CALCULATIONS' :
+      return {...state, calculations: action.payload}
+    default:
+      return state;
+  }
+};
+
 export default function SimulationForm() {
-  const [values, setValues] = useState({
-    length: "",
-    width: "",
-    nbrOfFence: "",
-    thickness: "",
+
+  const [state, dispatch] = useReducer(formReducer, {
+    values: {
+      length: "",
+      width: "",
+      nbrOfFence: "",
+      thickness: ""
+    },
+    gap: "",
+    calculations: [],
   });
-  const [gap, setGap] = useState("");
-  const [calculations, setCalculations] = useState([]);
-  const isCalculationDisabled =
-    !values.length || !values.width || !values.nbrOfFence;
 
   const calculateGap = (length, width, nbrOfFence) => {
     const gapValue = (length - width * nbrOfFence) / (nbrOfFence - 1);
@@ -30,32 +44,30 @@ export default function SimulationForm() {
 
   const addNewValueInCalcul = () => {
 
-    const { length, width, nbrOfFence, thickness } = values;
+    const { length, width, nbrOfFence, thickness } = state.values;
     const definitiveGap = calculateGap(
       parseFloat(length),
       parseFloat(width),
       parseInt(nbrOfFence)
     );
-    setGap(definitiveGap);
+
+    dispatch({type: 'SET_GAP', payload: definitiveGap})
+
     const woodThickness = calculateWoodThickness(
-      values.width,
+      state.values.width,
       definitiveGap,
       thickness
     );
-    setCalculations([
-      { gap: parseFloat(definitiveGap), thickness: woodThickness },
-    ]);
 
-  console.log(calculations);
-  console.log(values);
+    dispatch({type: 'SET_CALCULATIONS', payload: [{ gap: parseFloat(definitiveGap), thickness: woodThickness}]});
 
   };
 
   useEffect(() => {
-    if (values.length && values.width && values.nbrOfFence ) {
+    if (state.values.length && state.values.width && state.values.nbrOfFence ) {
       addNewValueInCalcul();
     }
-  }, [calculations, values]);
+  }, [state.values]);
 
   return (
     <div className='flex-bloc-column-center-start'>
@@ -67,8 +79,8 @@ export default function SimulationForm() {
             min='1'
             pattern='\d*'
             placeholder='longueur en mm'
-            value={values.length}
-            onChange={e => setValues({ ...values, length: e.target.value })}
+            value={state.values.length}
+            onChange={e => dispatch({ type: 'SET_VALUES', payload: { ...state.values, length: e.target.value}})}
             required
           />
         </label>
@@ -78,8 +90,8 @@ export default function SimulationForm() {
             type='number'
             min='1'
             placeholder='10000 mm'
-            value={values.width}
-            onChange={e => setValues({ ...values, width: e.target.value })}
+            value={state.values.width}
+            onChange={e => dispatch({ type: 'SET_VALUES', payload: { ...state.values, width: e.target.value}})}
             required
           />
         </label>
@@ -88,14 +100,14 @@ export default function SimulationForm() {
           <input
             type='number'
             min='1'
-            value={values.nbrOfFence}
-            onChange={e => setValues({ ...values, nbrOfFence: e.target.value })}
+            value={state.values.nbrOfFence}
+            onChange={e => dispatch({ type: 'SET_VALUES', payload: { ...state.values, nbrOfFence: e.target.value}})}
             required
           />
         </label>
         <label>
           Ecarts entre montants
-          <input type='number' readOnly='readOnly' value={gap} />
+          <input type='number' readOnly='readOnly' value={state.gap} />
         </label>
         <div className='btn-bloc'>
         </div>
@@ -108,7 +120,7 @@ export default function SimulationForm() {
           </tr>
         </thead>
         <tbody>
-        {calculations.length ? calculations[0]?.thickness?.map((thickness, index) => (
+        {state.calculations.length ? state.calculations[0]?.thickness?.map((thickness, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{thickness.toFixed(2)}</td>
