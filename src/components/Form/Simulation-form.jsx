@@ -34,7 +34,7 @@ export default function SimulationForm() {
 
   const calculateWoodThickness = (width, gap) => {
     let woodThickness = [0];
-    for (let i = 1; i <= 38; i++) {
+    for (let i = 1; i <= 37; i++) {
       woodThickness.push(
         (woodThickness[i - 1] || 0) + parseFloat(width) + parseFloat(gap)
       );
